@@ -2,7 +2,7 @@ information-Security-lasb
 =========================
 
 <h1>labs</h1>
-<h3>Установка</h3>
+<h3>Установка git</h3>
 <span>
 Для Ubuntu - sudo apt-get install git
 </span><br/>
@@ -14,7 +14,7 @@ information-Security-lasb
 В каком-нибудь редакторе открой {repository folder}/.git/config
 </span><br/>
 <span>
-Пример конфига:<br/>
+Пример конфига:<br/><br/><br/>
 [core]<br/>
 	repositoryformatversion = 0<br/>
 	filemode = true<br/>
