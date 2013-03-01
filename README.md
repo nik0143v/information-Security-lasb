@@ -2,14 +2,19 @@ information-Security-lasb
 =========================
 
 labs
+<span>
 Для того, чтобы начать работать с git над нашими лабами тебе нужно
-установить себе гит.
+установить себе гит.</span><br/>
+<span>
 Для Ubuntu - sudo apt-get install git
+</span><br/>
+<span>
 Для остального - google.ru ;)
-
+</span><br/><br/><br/>
+<span>
 пример конфига
-в каком-нибудь редакторе открой <repository folder>/.git/config
-
+в каком-нибудь редакторе открой {repository folder}/.git/config
+</span><br/>
 [core]
 	repositoryformatversion = 0
 	filemode = true
