@@ -9,6 +9,11 @@ information-Security-lasb
 <span>
 Для остального - <a href="http://www.google.ru/">google.ru ;)</a>
 </span><br/><br/><br/>
+<h3>Полчить копию репозитория:</h3>
+<span>После установки git нужно получить копию репозитория,</br>это делается так:<br/><br/>
+git clone git@github.com:nik0143v/information-Security-lasb.git
+</span>
+<span style="font-size:16">не забудь прописать публичные ssh ключи у себя в профиле на github</span>
 <h3>Конфигурирование репозитория:</h3>
 <span>
 В каком-нибудь редакторе открой {repository folder}/.git/config
