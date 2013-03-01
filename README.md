@@ -13,7 +13,7 @@ information-Security-lasb
 <span>После установки git нужно получить копию репозитория,</br>это делается так:<br/><br/>
 git clone git@github.com:nik0143v/information-Security-lasb.git
 </span><br/>
-<span style="font-size:16">не забудь прописать публичные ssh ключи у себя в профиле на github</span>
+<b>не забудь прописать публичные ssh ключи у себя в профиле на github</b>
 <h3>Конфигурирование репозитория:</h3>
 <span>
 В каком-нибудь редакторе открой {repository folder}/.git/config
