@@ -12,9 +12,9 @@ information-Security-lasb
 <h3>Конфигурирование репозитория:</h3>
 <span>
 В каком-нибудь редакторе открой {repository folder}/.git/config
-</span><br/>
+</span><br/><br/>
 <span>
-Пример конфига:<br/><br/><br/>
+Пример конфига:<br/><br/>
 [core]<br/>
 	repositoryformatversion = 0<br/>
 	filemode = true<br/>
