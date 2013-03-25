@@ -4,6 +4,8 @@
  */
 package gui;
 
+import symmetric.PolyalphabeticCipher;
+
 /**
  *
  * @author egor
@@ -15,6 +17,8 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public NewJFrame() {
         initComponents();
+        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -35,18 +39,28 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        algorithmTabbedPane = new javax.swing.JTabbedPane();
+        symmetricPanel = new javax.swing.JPanel();
         SymA_magic = new javax.swing.JRadioButton();
         SymA_poly = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        asymmetricPanel = new javax.swing.JPanel();
+        PGPPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         encodeButton.setText("encode");
+        encodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodeButtonActionPerformed(evt);
+            }
+        });
 
         decodeButton.setText("decode");
+        decodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decodeButtonActionPerformed(evt);
+            }
+        });
 
         clearButton.setText("clear");
         clearButton.addActionListener(new java.awt.event.ActionListener() {
@@ -66,54 +80,54 @@ public class NewJFrame extends javax.swing.JFrame {
 
         SymA_poly.setText("polyalphabetic cipher");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout symmetricPanelLayout = new javax.swing.GroupLayout(symmetricPanel);
+        symmetricPanel.setLayout(symmetricPanelLayout);
+        symmetricPanelLayout.setHorizontalGroup(
+            symmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(symmetricPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(symmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SymA_magic)
                     .addComponent(SymA_poly))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        symmetricPanelLayout.setVerticalGroup(
+            symmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(symmetricPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(SymA_magic)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(SymA_poly)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Symmetric", jPanel1);
+        algorithmTabbedPane.addTab("Symmetric", symmetricPanel);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout asymmetricPanelLayout = new javax.swing.GroupLayout(asymmetricPanel);
+        asymmetricPanel.setLayout(asymmetricPanelLayout);
+        asymmetricPanelLayout.setHorizontalGroup(
+            asymmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 380, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+        asymmetricPanelLayout.setVerticalGroup(
+            asymmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 72, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Asymmetric", jPanel2);
+        algorithmTabbedPane.addTab("Asymmetric", asymmetricPanel);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PGPPanelLayout = new javax.swing.GroupLayout(PGPPanel);
+        PGPPanel.setLayout(PGPPanelLayout);
+        PGPPanelLayout.setHorizontalGroup(
+            PGPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 380, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+        PGPPanelLayout.setVerticalGroup(
+            PGPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 72, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("PGP", jPanel3);
+        algorithmTabbedPane.addTab("PGP", PGPPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,13 +151,13 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(decodeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1))
+                    .addComponent(algorithmTabbedPane))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(algorithmTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,6 +178,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        algorithmTabbedPane.getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -173,6 +189,36 @@ public class NewJFrame extends javax.swing.JFrame {
         encodeLine.setText(null);
         decodeLine.setText(null);
     }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void encodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodeButtonActionPerformed
+        String inputText = inputLine.getText();
+        String encode = "";
+        
+        if (algorithmTabbedPane.getSelectedComponent() == symmetricPanel) {
+            if (SymA_magic.isSelected()) {
+                //encode = MagicSquaer().encode(inputText);
+            } else {
+                encode = new PolyalphabeticCipher().encode(inputText);
+            }
+        }
+        
+        encodeLine.setText(encode);
+    }//GEN-LAST:event_encodeButtonActionPerformed
+
+    private void decodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decodeButtonActionPerformed
+        String encode = encodeLine.getText();
+        String decode = "";
+        
+        if (algorithmTabbedPane.getSelectedComponent() == symmetricPanel) {
+            if (SymA_magic.isSelected()) {
+                //encode = MagicSquaer().decode(inputText);
+            } else {
+                decode = new PolyalphabeticCipher().decode(encode);
+            }
+        }
+        
+        decodeLine.setText(decode);
+    }//GEN-LAST:event_decodeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,8 +255,11 @@ public class NewJFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PGPPanel;
     private javax.swing.JRadioButton SymA_magic;
     private javax.swing.JRadioButton SymA_poly;
+    private javax.swing.JTabbedPane algorithmTabbedPane;
+    private javax.swing.JPanel asymmetricPanel;
     private javax.swing.JButton clearButton;
     private javax.swing.JButton decodeButton;
     private javax.swing.JTextField decodeLine;
@@ -220,9 +269,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel symmetricPanel;
     // End of variables declaration//GEN-END:variables
 }
