@@ -9,12 +9,28 @@ package symmetric;
  * @author Артём
  */
 public class PolyalphabeticCipher {
+    private char[] key = "key".toCharArray();
 
-    public String encode(String text) {
-        return "code";
+    public PolyalphabeticCipher() {
+    }
+
+    public String encode(String text) {   
+        char[] code = text.toCharArray();
+ 
+        for (int i = 0; i < text.length(); i++) {
+            code[i] = (char)((code[i] + key[i % key.length]) % Character.MAX_VALUE);
+        }
+
+        return new String(code);
     }
     
     public String decode(String code) {
-        return "text";
+        char decode[] = code.toCharArray();
+        
+        for (int i = 0; i < decode.length; i++) {
+            decode[i] = (char)(decode[i] - key[i % key.length] % Character.MAX_VALUE);
+        }
+        
+        return new String(decode);
     }
 }
