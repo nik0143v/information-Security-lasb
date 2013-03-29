@@ -4,6 +4,7 @@
  */
 package gui;
 
+import symmetric.MagicSquaer;
 import symmetric.PolyalphabeticCipher;
 
 /**
@@ -11,6 +12,7 @@ import symmetric.PolyalphabeticCipher;
  * @author egor
  */
 public class NewJFrame extends javax.swing.JFrame {
+    private String inputText;
 
     /**
      * Creates new form NewJFrame
@@ -196,7 +198,7 @@ public class NewJFrame extends javax.swing.JFrame {
         
         if (algorithmTabbedPane.getSelectedComponent() == symmetricPanel) {
             if (SymA_magic.isSelected()) {
-                //encode = MagicSquaer().encode(inputText);
+                encode = MagicSquaer.getInstace().encode(inputText);
             } else {
                 encode = new PolyalphabeticCipher().encode(inputText);
             }
@@ -211,7 +213,7 @@ public class NewJFrame extends javax.swing.JFrame {
         
         if (algorithmTabbedPane.getSelectedComponent() == symmetricPanel) {
             if (SymA_magic.isSelected()) {
-                //encode = MagicSquaer().decode(inputText);
+                decode = MagicSquaer.getInstace().decode(encode);
             } else {
                 decode = new PolyalphabeticCipher().decode(encode);
             }
