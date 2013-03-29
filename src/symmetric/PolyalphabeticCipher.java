@@ -4,16 +4,19 @@
  */
 package symmetric;
 
+import base.baseCoder;
+
 /**
  *
  * @author Артём
  */
-public class PolyalphabeticCipher {
+public class PolyalphabeticCipher implements baseCoder{
     private char[] key = "key".toCharArray();
 
     public PolyalphabeticCipher() {
     }
 
+    @Override
     public String encode(String text) {   
         char[] code = text.toCharArray();
  
@@ -24,6 +27,7 @@ public class PolyalphabeticCipher {
         return new String(code);
     }
     
+    @Override
     public String decode(String code) {
         char decode[] = code.toCharArray();
         
