@@ -32,7 +32,7 @@ public class PolyalphabeticCipher implements baseCoder{
         char decode[] = code.toCharArray();
         
         for (int i = 0; i < decode.length; i++) {
-            decode[i] = (char)(decode[i] - key[i % key.length] % Character.MAX_VALUE);
+            decode[i] = (char)((decode[i] - key[i % key.length]) % Character.MAX_VALUE);
         }
         
         return new String(decode);
