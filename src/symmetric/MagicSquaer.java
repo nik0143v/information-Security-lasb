@@ -4,44 +4,108 @@
  */
 package symmetric;
 
+import base.baseCoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author egor
  */
-public class MagicSquaer 
+public class MagicSquaer  implements baseCoder
 {
-    private static int _instance[][];
-    private int Max;
+    private int _matrix[][];
+    private int MidLen;
     private int wallSize;
-    
-    public MagicSquaer(int MaxSize)
+    private static MagicSquaer _instace = null;
+
+    static public MagicSquaer getInstace()
     {
-        Max = MaxSize % 2 == 0 ? MaxSize += 1 : MaxSize;
-        wallSize = Max * 2 - 1;
-        MagicSquaer._instance = new int[wallSize][wallSize];
-        for(int y= Max-1, x = 0, number = 1; y <= Max + 1; y++,x++)
+        if(_instace == null) _instace = new MagicSquaer();
+        return _instace;
+    }
+    
+
+    private int[][] CalcMatrix(int MaxSize)throws Throwable
+    {
+        System.out.println("2");
+        if(MaxSize == 0)throw new Exception("invalid string");
+        int tmp = (int)Math.round(Math.sqrt((double)MaxSize));
+        tmp += tmp < Math.sqrt((double)MaxSize) ? 1 : 0;
+        tmp = tmp% 2 == 0 ? tmp += 1 : tmp;
+        if(MidLen == tmp)return _matrix;
+        System.out.println("3");
+        MidLen = tmp;
+        wallSize = MidLen * 2 - 1;
+        _matrix = new int[wallSize][wallSize];
+        int LenDiv4 = (MidLen - 1)/2;
+        for(int y = MidLen -1 , x = 0, num = 1; x < MidLen ; y++,x++)
         {
-            for(int xx = x, yy = y; xx < Max + x; xx++, yy--, number++)
+            for(int yy = y, xx = x; yy > y - MidLen ;yy--,xx++,num++)
             {
-                MagicSquaer._instance[yy][xx] = number;
-            }
-        }
-        for(int y = (Max-1)/2; y < wallSize-1; y++)
-        {
-            for(int x = (Max-1)/2; x < wallSize-1; x++)
-            {
-                if(MagicSquaer._instance[y][x] != 0)continue;
-                if( x + Max < wallSize )
-                { MagicSquaer._instance[y][x] = MagicSquaer._instance[y][x + Max]; }
-                else if( x - Max > 0 )
-                { MagicSquaer._instance[y][x] = MagicSquaer._instance[y][x - Max]; }
-                else if( y + Max < wallSize )
-                { MagicSquaer._instance[y][x] = MagicSquaer._instance[y + Max][x]; }
-                else 
-                { MagicSquaer._instance[y][x] = MagicSquaer._instance[y - Max][x]; }
+                if(xx < LenDiv4)_matrix[yy][xx+MidLen] = num;
+                else if(xx > wallSize - 1 - LenDiv4)_matrix[yy][xx-MidLen] = num;
+                else if(yy < LenDiv4)_matrix[yy+MidLen][xx] = num;
+                else if(yy > wallSize - 1 - LenDiv4)_matrix[yy-MidLen][xx] = num;
+                else _matrix[yy][xx] = num;
             }
         }
         
+        /*System.out.println("Начальный квадрат");
+        for (int i = 0; i < wallSize; i++) {
+            for (int j = 0; j < wallSize; j++) {
+                System.out.print(_instance[i][j]);
+                System.out.print("\t");
+            }
+            System.out.print("\n");//this is spartaaaaaaaaaaa!
+        }*/
+        return _matrix;
+    }
+    
+    @Override
+    public String decode(String inputString)
+    {
+        String result = "";
+        try {
+            for(int[] string : CalcMatrix(inputString.length()))
+            {
+                for(int index : string)
+                {
+                    if(index == 0)continue;
+                    if(index > inputString.length())continue;
+                    result += inputString.charAt(index-1);
+                }
+            }
+            return result;
+        } catch (Throwable ex) {
+            Logger.getLogger(MagicSquaer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+
+    @Override
+    public String encode(String inputString)
+    {
+        System.out.println("1");
+        try {
+            char[] result = new char[inputString.length()];
+            CalcMatrix(inputString.length());
+            System.out.println(inputString.length());
+            int MidLenDiv2 = (MidLen-1)/2;
+            for(int i = MidLenDiv2, index = 0; i < wallSize - MidLenDiv2; i++)
+            {
+                for(int ii = MidLenDiv2; ii < wallSize - MidLenDiv2; ii++)
+                {
+                    if(_matrix[i][ii] > inputString.length())continue;
+                    result[_matrix[i][ii]-1] = inputString.charAt(index);
+                    index++;
+                }
+            }
+            return new String(result);
+        } catch (Throwable ex) {
+            Logger.getLogger(MagicSquaer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
     
 }
