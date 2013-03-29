@@ -168,6 +168,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        // clear all lines
         inputLine.setText(null);
         encodeLine.setText(null);
         decodeLine.setText(null);
