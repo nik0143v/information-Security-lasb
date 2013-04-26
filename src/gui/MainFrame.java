@@ -387,7 +387,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_elgamalRadioButtonStateChanged
 
     private void generateKeysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateKeysButtonActionPerformed
-        int p = 1279;
+        int p = 81799;
         int g = (int)((p - 2) * Math.random()) + 1;
         int x = (int)((p - 2) * Math.random()) + 1;
         int y = (int)(Math.pow(g, x)) % p;
