@@ -1,22 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package asymmetric;
 
 import base.baseCoder;
 import java.math.BigInteger;
-import sun.security.util.BigInt;
 
 /**
  *
  * @author Артём
  */
 public class Elgamal implements baseCoder {
+    // public keys
     private BigInteger p;
     private BigInteger g;
-    private int x;
     private BigInteger y;
+    
+    // private key
+    private int x;
     
     private static Elgamal _instace = null;
 
@@ -28,26 +26,30 @@ public class Elgamal implements baseCoder {
         return _instace;
     }
 
-    public void setPublicKey(int p, int g, int y) {
-        this.g = new BigInteger(Integer.toString(g));
-        this.p = new BigInteger(Integer.toString(p));
-        this.y = new BigInteger(Integer.toString(y));
-    }
-    
-    public void setPrivateKey(int x) {
-        this.x = x;
+    public void generateKeys() {
+        int prime = 65551;
+        int gg = (int)((prime - 2) * Math.random()) + 1;
+        x = (int)((prime - 2) * Math.random()) + 1;
+        
+        g = new BigInteger(Integer.toString(gg));
+        p = new BigInteger(Integer.toString(prime));
+        y = g.pow(x).mod(p);
     }
     
     @Override
     public String encode(String inputString) {
+        generateKeys();
+        
         char[] text = inputString.toCharArray();
         
-        int k = (int)((p.intValue() - 2) * Math.random()) + 1;
+        int sgrtP = (int)Math.sqrt(p.intValue() - 4);
+        int k = 0;
         char[] result = new char[2 * text.length];
-        for (int i = 0, j = 0; i < text.length; i++, j+=2) {
+        for (int i = 0, j = 0; i < text.length; i++, j+=2) {       
+            k = (int)(sgrtP * Math.random()) + sgrtP + 1;
             
-            result[j] = (char) (g.pow(k).mod(p).intValue());
-            result[j + 1] = (char) y.pow(k).multiply(new BigInteger("" + Character.getNumericValue(text[i]))).mod(p).intValue();
+            result[j]     = (char) g.pow(k).mod(p).intValue();
+            result[j + 1] = (char) y.pow(k).multiply(new BigInteger("" + (int)text[i])).mod(p).intValue();
         }
         
         return new String(result);
@@ -56,18 +58,15 @@ public class Elgamal implements baseCoder {
     @Override
     public String decode(String inputString) {
         char code[] = inputString.toCharArray();
-        
 
         char[] text = new char[code.length / 2];
         for (int i = 0, j = 0; i < code.length; i = i + 2, j++) {
-            BigInteger ch = 
-                    new BigInteger("" + (int)code[i+1]).
-                    multiply(new BigInteger("" + Character.getNumericValue(code[i])).pow(p.intValue() - 1 - x)).mod(p);
-            
-            text[j] = (char)ch.intValue();
+            BigInteger a = new BigInteger("" + (int)code[i]);
+            BigInteger b = new BigInteger("" + (int)code[i + 1]);
+               
+            text[j] = (char) b.multiply(a.pow(p.intValue() - 1 - x)).mod(p).intValue();
         }
         
         return new String(text);
-    }
-    
+    } 
 }

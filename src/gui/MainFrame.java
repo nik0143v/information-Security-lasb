@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import asymmetric.Elgamal;
@@ -51,17 +47,6 @@ public class MainFrame extends javax.swing.JFrame {
         asymmetricPanel = new javax.swing.JPanel();
         rsaRadioButton = new javax.swing.JRadioButton();
         elgamalRadioButton = new javax.swing.JRadioButton();
-        generateKeysButton = new javax.swing.JButton();
-        publicKeyPanel = new javax.swing.JPanel();
-        yField = new javax.swing.JTextField();
-        pField = new javax.swing.JTextField();
-        gField = new javax.swing.JTextField();
-        pLabel = new javax.swing.JLabel();
-        gLabel = new javax.swing.JLabel();
-        yLabel = new javax.swing.JLabel();
-        privateKeyPanel = new javax.swing.JPanel();
-        xField = new javax.swing.JTextField();
-        xLabel = new javax.swing.JLabel();
         PGPPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(SymA_magic)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SymA_poly)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         algorithmTabbedPane.addTab("Symmetric", symmetricPanel);
@@ -131,89 +116,6 @@ public class MainFrame extends javax.swing.JFrame {
         asymmetricGroup.add(elgamalRadioButton);
         elgamalRadioButton.setSelected(true);
         elgamalRadioButton.setText("Elgamal");
-        elgamalRadioButton.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                elgamalRadioButtonStateChanged(evt);
-            }
-        });
-
-        generateKeysButton.setText("Generate");
-        generateKeysButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generateKeysButtonActionPerformed(evt);
-            }
-        });
-
-        publicKeyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Public key"));
-
-        yField.setEnabled(false);
-
-        pField.setEnabled(false);
-
-        gField.setEnabled(false);
-
-        pLabel.setText("p :");
-
-        gLabel.setText("g :");
-
-        yLabel.setText("y :");
-
-        javax.swing.GroupLayout publicKeyPanelLayout = new javax.swing.GroupLayout(publicKeyPanel);
-        publicKeyPanel.setLayout(publicKeyPanelLayout);
-        publicKeyPanelLayout.setHorizontalGroup(
-            publicKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, publicKeyPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(publicKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(gLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(yLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(25, 25, 25)
-                .addGroup(publicKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(yField)
-                    .addComponent(pField)
-                    .addComponent(gField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        publicKeyPanelLayout.setVerticalGroup(
-            publicKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(publicKeyPanelLayout.createSequentialGroup()
-                .addGroup(publicKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(publicKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(publicKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(yField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yLabel)))
-        );
-
-        privateKeyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Private key"));
-
-        xField.setEnabled(false);
-
-        xLabel.setText("x :");
-
-        javax.swing.GroupLayout privateKeyPanelLayout = new javax.swing.GroupLayout(privateKeyPanel);
-        privateKeyPanel.setLayout(privateKeyPanelLayout);
-        privateKeyPanelLayout.setHorizontalGroup(
-            privateKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, privateKeyPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(xLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(xField, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        privateKeyPanelLayout.setVerticalGroup(
-            privateKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(privateKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(xField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(xLabel))
-        );
 
         javax.swing.GroupLayout asymmetricPanelLayout = new javax.swing.GroupLayout(asymmetricPanel);
         asymmetricPanel.setLayout(asymmetricPanelLayout);
@@ -222,31 +124,17 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(asymmetricPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(asymmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rsaRadioButton)
-                    .addComponent(generateKeysButton)
-                    .addComponent(elgamalRadioButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(asymmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(privateKeyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(publicKeyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(elgamalRadioButton)
+                    .addComponent(rsaRadioButton))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
         asymmetricPanelLayout.setVerticalGroup(
             asymmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(asymmetricPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(asymmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(asymmetricPanelLayout.createSequentialGroup()
-                        .addComponent(elgamalRadioButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(generateKeysButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(asymmetricPanelLayout.createSequentialGroup()
-                        .addComponent(publicKeyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(asymmetricPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(privateKeyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rsaRadioButton))
+                .addComponent(elgamalRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rsaRadioButton)
                 .addContainerGap())
         );
 
@@ -260,7 +148,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         PGPPanelLayout.setVerticalGroup(
             PGPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 186, Short.MAX_VALUE)
         );
 
         algorithmTabbedPane.addTab("PGP", PGPPanel);
@@ -342,12 +230,6 @@ public class MainFrame extends javax.swing.JFrame {
             if (rsaRadioButton.isSelected()) {
                 
             } else {
-                int p = Integer.parseInt(pField.getText());
-                int g = Integer.parseInt(gField.getText());
-                int y = Integer.parseInt(yField.getText());
-                int x = Integer.parseInt(xField.getText());
-                Elgamal.getInstace().setPublicKey(p, g, y);
-                Elgamal.getInstace().setPrivateKey(x);
                 encode = Elgamal.getInstace().encode(inputText);
             }
         }
@@ -377,26 +259,6 @@ public class MainFrame extends javax.swing.JFrame {
         
         decodeLine.setText(decode);
     }//GEN-LAST:event_decodeButtonActionPerformed
-
-    private void elgamalRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_elgamalRadioButtonStateChanged
-        boolean isVisible = elgamalRadioButton.isSelected();
-        
-        generateKeysButton.setVisible(isVisible);
-        publicKeyPanel.setVisible(isVisible);
-        privateKeyPanel.setVisible(isVisible);
-    }//GEN-LAST:event_elgamalRadioButtonStateChanged
-
-    private void generateKeysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateKeysButtonActionPerformed
-        int p = 81799;
-        int g = (int)((p - 2) * Math.random()) + 1;
-        int x = (int)((p - 2) * Math.random()) + 1;
-        int y = (int)(Math.pow(g, x)) % p;
-        
-        pField.setText(String.valueOf(p));
-        gField.setText(String.valueOf(g));
-        yField.setText(String.valueOf(y));
-        xField.setText(String.valueOf(x));
-    }//GEN-LAST:event_generateKeysButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -445,23 +307,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton elgamalRadioButton;
     private javax.swing.JButton encodeButton;
     private javax.swing.JTextField encodeLine;
-    private javax.swing.JTextField gField;
-    private javax.swing.JLabel gLabel;
-    private javax.swing.JButton generateKeysButton;
     private javax.swing.JTextField inputLine;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField pField;
-    private javax.swing.JLabel pLabel;
-    private javax.swing.JPanel privateKeyPanel;
-    private javax.swing.JPanel publicKeyPanel;
     private javax.swing.JRadioButton rsaRadioButton;
     private javax.swing.ButtonGroup symmetricGroup;
     private javax.swing.JPanel symmetricPanel;
-    private javax.swing.JTextField xField;
-    private javax.swing.JLabel xLabel;
-    private javax.swing.JTextField yField;
-    private javax.swing.JLabel yLabel;
     // End of variables declaration//GEN-END:variables
 }
