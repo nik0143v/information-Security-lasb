@@ -1,6 +1,7 @@
 package gui;
 
 import asymmetric.Elgamal;
+import asymmetric.RSA;
 import symmetric.MagicSquaer;
 import symmetric.PolyalphabeticCipher;
 
@@ -228,7 +229,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         if (algorithmTabbedPane.getSelectedComponent() == asymmetricPanel) {
             if (rsaRadioButton.isSelected()) {
-                
+                encode = RSA.getInstace().encode(inputText);
             } else {
                 encode = Elgamal.getInstace().encode(inputText);
             }
@@ -251,7 +252,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         if (algorithmTabbedPane.getSelectedComponent() == asymmetricPanel) {
             if (rsaRadioButton.isSelected()) {
-                
+                decode = RSA.getInstace().decode(encode);
             } else {
                 decode = Elgamal.getInstace().decode(encode);
             }

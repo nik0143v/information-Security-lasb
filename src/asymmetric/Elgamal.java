@@ -42,11 +42,11 @@ public class Elgamal implements baseCoder {
         
         char[] text = inputString.toCharArray();
         
-        int sgrtP = (int)Math.sqrt(p.intValue() - 4);
+        int sqrtP = (int)Math.sqrt(p.intValue() - 4);
         int k = 0;
         char[] result = new char[2 * text.length];
         for (int i = 0, j = 0; i < text.length; i++, j+=2) {       
-            k = (int)(sgrtP * Math.random()) + sgrtP + 1;
+            k = (int)(sqrtP * Math.random()) + sqrtP + 1;
             
             result[j]     = (char) g.pow(k).mod(p).intValue();
             result[j + 1] = (char) y.pow(k).multiply(new BigInteger("" + (int)text[i])).mod(p).intValue();
