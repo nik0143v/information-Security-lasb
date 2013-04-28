@@ -27,12 +27,12 @@ public class Elgamal implements baseCoder {
     }
 
     public void generateKeys() {
-        int prime = 65551;
-        int gg = (int)((prime - 2) * Math.random()) + 1;
+        long prime = 65551;
+        long gg = (int)((prime - 2) * Math.random()) + 1;
         x = (int)((prime - 2) * Math.random()) + 1;
         
-        g = new BigInteger(Integer.toString(gg));
-        p = new BigInteger(Integer.toString(prime));
+        g = BigInteger.valueOf(gg);
+        p = BigInteger.valueOf(prime);
         y = g.pow(x).mod(p);
     }
     
@@ -49,7 +49,7 @@ public class Elgamal implements baseCoder {
             k = (int)(sqrtP * Math.random()) + sqrtP + 1;
             
             result[j]     = (char) g.pow(k).mod(p).intValue();
-            result[j + 1] = (char) y.pow(k).multiply(new BigInteger("" + (int)text[i])).mod(p).intValue();
+            result[j + 1] = (char) y.pow(k).multiply(BigInteger.valueOf((long)text[i])).mod(p).intValue();
         }
         
         return new String(result);
@@ -61,8 +61,8 @@ public class Elgamal implements baseCoder {
 
         char[] text = new char[code.length / 2];
         for (int i = 0, j = 0; i < code.length; i = i + 2, j++) {
-            BigInteger a = new BigInteger("" + (int)code[i]);
-            BigInteger b = new BigInteger("" + (int)code[i + 1]);
+            BigInteger a = BigInteger.valueOf((long)code[i]);
+            BigInteger b = BigInteger.valueOf((long)code[i + 1]);
                
             text[j] = (char) b.multiply(a.pow(p.intValue() - 1 - x)).mod(p).intValue();
         }
