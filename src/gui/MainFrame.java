@@ -2,21 +2,48 @@ package gui;
 
 import asymmetric.Elgamal;
 import asymmetric.RSA;
+import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFPage;
+import com.sun.pdfview.PagePanel;
 import symmetric.MagicSquaer;
 import symmetric.PolyalphabeticCipher;
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 /**
  *
  * @author egor
  */
 public class MainFrame extends javax.swing.JFrame {
-    private String inputText;
-
+    private PDFFile pdffile     = null;
+    private int     indexOfPage = 1;
+    
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        
+        // load pdf file
+        URL url = getClass().getResource("/resourses/report.pdf");
+        try {
+            File file = new File(url.toURI());
+            RandomAccessFile raf = new RandomAccessFile(file, "r");
+            FileChannel channel = raf.getChannel();
+            ByteBuffer buf = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
+            pdffile = new PDFFile(buf);
+        } catch (Exception ex) { }
+        
+        PagePanel panel = (PagePanel) pagePanel;
+        
+        // show the first page
+        PDFPage page = pdffile.getPage(indexOfPage);
+        panel.showPage(page);
+        
+        prevButton.setVisible(false);
         
         setLocationRelativeTo(null);
     }
@@ -49,6 +76,9 @@ public class MainFrame extends javax.swing.JFrame {
         rsaRadioButton = new javax.swing.JRadioButton();
         elgamalRadioButton = new javax.swing.JRadioButton();
         PGPPanel = new javax.swing.JPanel();
+        nextButton = new javax.swing.JButton();
+        prevButton = new javax.swing.JButton();
+        pagePanel = new com.sun.pdfview.PagePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Coder");
@@ -106,7 +136,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(SymA_magic)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SymA_poly)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         algorithmTabbedPane.addTab("Symmetric", symmetricPanel);
@@ -141,15 +171,47 @@ public class MainFrame extends javax.swing.JFrame {
 
         algorithmTabbedPane.addTab("Asymmetric", asymmetricPanel);
 
+        nextButton.setText(">");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
+
+        prevButton.setText("<");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pagePanelLayout = new javax.swing.GroupLayout(pagePanel);
+        pagePanel.setLayout(pagePanelLayout);
+        pagePanelLayout.setHorizontalGroup(
+            pagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 249, Short.MAX_VALUE)
+        );
+        pagePanelLayout.setVerticalGroup(
+            pagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout PGPPanelLayout = new javax.swing.GroupLayout(PGPPanel);
         PGPPanel.setLayout(PGPPanelLayout);
         PGPPanelLayout.setHorizontalGroup(
             PGPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 343, Short.MAX_VALUE)
+            .addGroup(PGPPanelLayout.createSequentialGroup()
+                .addComponent(prevButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nextButton))
         );
         PGPPanelLayout.setVerticalGroup(
             PGPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
+            .addComponent(nextButton, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+            .addComponent(prevButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pagePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         algorithmTabbedPane.addTab("PGP", PGPPanel);
@@ -165,19 +227,18 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(inputLine, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(encodeLine)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(encodeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
                         .addComponent(decodeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(algorithmTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(algorithmTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,10 +322,42 @@ public class MainFrame extends javax.swing.JFrame {
         decodeLine.setText(decode);
     }//GEN-LAST:event_decodeButtonActionPerformed
 
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        PagePanel panel = (PagePanel) pagePanel;    
+        
+        if (indexOfPage < pdffile.getNumPages()) {
+            indexOfPage++;
+            prevButton.setVisible(true);
+        }
+        
+        if (indexOfPage == pdffile.getNumPages()) {
+            nextButton.setVisible(false);
+        }
+
+        PDFPage page = pdffile.getPage(indexOfPage);
+        panel.showPage(page);
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        PagePanel panel = (PagePanel) pagePanel;    
+        
+        if (indexOfPage > 1) {
+            indexOfPage--;
+            nextButton.setVisible(true);
+        } 
+        
+        if (indexOfPage == 1) {
+            prevButton.setVisible(false);
+        }  
+
+        PDFPage page = pdffile.getPage(indexOfPage);
+        panel.showPage(page);
+    }//GEN-LAST:event_prevButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {      
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -312,6 +405,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JPanel pagePanel;
+    private javax.swing.JButton prevButton;
     private javax.swing.JRadioButton rsaRadioButton;
     private javax.swing.ButtonGroup symmetricGroup;
     private javax.swing.JPanel symmetricPanel;
